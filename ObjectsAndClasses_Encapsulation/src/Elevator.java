@@ -11,10 +11,6 @@ public class Elevator {
         this.maxFloor = maxFloor;
     }
 
-    public int getCurrentFloor() {
-        return currentFloor;
-    }
-
     public void moveDown() {
         currentFloor -= 1;
     }
@@ -48,5 +44,8 @@ public class Elevator {
             }
             System.out.println("You arrived, " + dF.format(currentFloor) + " floor.");
         }
+    }
+    public int getCurrentFloor() {
+        return currentFloor;
     }
 }

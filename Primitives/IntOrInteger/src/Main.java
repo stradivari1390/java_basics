@@ -2,11 +2,15 @@ public class Main {
     public static void main(String[] args) {
         Container container = new Container();
         container.addCount(5672);
-        System.out.println(container.getCount());
+        System.out.println(container.getCount() + "\n");
 
-        // TODO: ниже напишите код для выполнения задания:
-        //  С помощью цикла и преобразования чисел в символы найдите все коды
-        //  букв русского алфавита — заглавных и строчных, в том числе буквы Ё.
-
+        for (int i = 0; i <= 65535; i++) {
+            char test = (char)i;
+            for (RussianAlphabet letter : RussianAlphabet.values()) {
+                if (letter.name().equals(String.valueOf(test))) {
+                    System.out.println(i + " = " + (char) i);
+                }
+            }
+        }
     }
 }

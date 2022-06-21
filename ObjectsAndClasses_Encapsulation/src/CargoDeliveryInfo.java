@@ -6,10 +6,20 @@ public class CargoDeliveryInfo {
     private final String regNumber;
     private final boolean fragile;
 
+    public CargoDeliveryInfo(Dimensions dimensions, int weight, String deliveryAddress,
+                             boolean canBeFlipped, String regNumber, boolean fragile) {
+        this.dimensions = dimensions;
+        this.weight = weight;
+        this.deliveryAddress = deliveryAddress;
+        this.canBeFlipped = canBeFlipped;
+        this.regNumber = regNumber;
+        this.fragile = fragile;
+    }
+
     public String getDimensions() {
         return "length - " + dimensions.getLength() +
-               ", width - " + dimensions.getWidth() +
-               ", height - " + dimensions.getHeight();
+                ", width - " + dimensions.getWidth() +
+                ", height - " + dimensions.getHeight();
     }
 
     public int getWeight() {
@@ -32,15 +42,6 @@ public class CargoDeliveryInfo {
         return fragile;
     }
 
-    public CargoDeliveryInfo(Dimensions dimensions, int weight, String deliveryAddress,
-                             boolean canBeFlipped, String regNumber, boolean fragile) {
-        this.dimensions = dimensions;
-        this.weight = weight;
-        this.deliveryAddress = deliveryAddress;
-        this.canBeFlipped = canBeFlipped;
-        this.regNumber = regNumber;
-        this.fragile = fragile;
-    }
 
     public CargoDeliveryInfo setDeliveryAddress(String deliveryAddress) {
         return new CargoDeliveryInfo(dimensions, weight, deliveryAddress, canBeFlipped,
