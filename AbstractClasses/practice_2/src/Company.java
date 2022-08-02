@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Company {
-    private final List<Employee> employees = new ArrayList<Employee>();
+    private final List<Employee> employees = new ArrayList<>();
     private final int income = (int) (Math.random() * (12_000_000 - 8_000_000 + 1) + 8_000_000);
 
     public void hire(Employee employee) {
@@ -42,9 +42,9 @@ public class Company {
         } else if (count > this.getEmployeesCount()) {
             count = this.getEmployeesCount();
         }
-        List<Employee> copyList = new ArrayList<Employee>(employees);
+        List<Employee> copyList = new ArrayList<>(employees);
         Collections.sort(copyList, comparator);
-        List<Employee> result = new ArrayList<Employee>();
+        List<Employee> result = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             result.add(copyList.get(i));
         }
