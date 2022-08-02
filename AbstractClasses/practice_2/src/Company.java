@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Company {
     private final List<Employee> employees = new ArrayList<Employee>();
-    private static final int income = (int) (Math.random() * (12_000_000 - 8_000_000 + 1) + 8_000_000);
+    private final int income = (int) (Math.random() * (12_000_000 - 8_000_000 + 1) + 8_000_000);
 
     public void hire(Employee employee) {
         this.employees.add(employee);
@@ -16,7 +16,7 @@ public class Company {
         employees.remove(employee);
     }
 
-    public static int getIncome() {
+    public int getIncome() {
         return income;
     }
 

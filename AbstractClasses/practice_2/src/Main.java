@@ -43,7 +43,7 @@ public class Main {
             company.hire(manager);
         }
         for (int i = 0; i < 10; i++) {
-            Employee topManager = new TopManager();
+            Employee topManager = new TopManager(company);
             company.hire(topManager);
         }
         System.out.println(company.getEmployeesCount() + " employees hired");
