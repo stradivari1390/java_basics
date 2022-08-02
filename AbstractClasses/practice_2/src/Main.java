@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        Company company = new Company();
+        Company company = new Company("IBM");
         hireEmployees(company);
         printHighestSalaries(company);
         printLowestSalaries(company);
@@ -12,14 +12,14 @@ public class Main {
     private static void printLowestSalaries(Company company) {
         System.out.println("Lowest salaries: ");
         for (Employee employee : company.getLowestSalaryStaff(15)) {
-            System.out.println(employee.getMonthSalary());
+            System.out.println(employee);
         }
     }
 
     private static void printHighestSalaries(Company company) {
         System.out.println("Highest salaries: ");
         for (Employee employee : company.getTopSalaryStaff(15)) {
-            System.out.println(employee.getMonthSalary());
+            System.out.println(employee);
         }
     }
 
@@ -35,11 +35,11 @@ public class Main {
 
     private static void hireEmployees(Company company) {
         for (int i = 0; i < 180; i++) {
-            Employee operator = new Operator();
+            Employee operator = new Operator(company);
             company.hire(operator);
         }
         for (int i = 0; i < 80; i++) {
-            Employee manager = new Manager();
+            Employee manager = new Manager(company);
             company.hire(manager);
         }
         for (int i = 0; i < 10; i++) {

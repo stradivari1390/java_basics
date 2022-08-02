@@ -1,8 +1,14 @@
 import java.util.*;
 
 public class Company {
+    private final String name;
+
+    public Company(String name) {
+        this.name = name;
+    }
+
     private final List<Employee> employees = new ArrayList<>();
-    private final int income = (int) (Math.random() * (12_000_000 - 8_000_000 + 1) + 8_000_000);
+    private final int income = (int) (Math.random() * (120_000_000 - 80_000_000 + 1) + 80_000_000);
 
     public void hire(Employee employee) {
         this.employees.add(employee);
@@ -14,10 +20,6 @@ public class Company {
 
     public void fire(Employee employee) {
         employees.remove(employee);
-    }
-
-    public int getIncome() {
-        return income;
     }
 
     public List<Employee> getTopSalaryStaff(int count) {
@@ -57,5 +59,13 @@ public class Company {
 
     public List<Employee> getEmployeesList() {
         return employees;
+    }
+
+    public int getIncome() {
+        return income;
+    }
+
+    public String getName() {
+        return name;
     }
 }
