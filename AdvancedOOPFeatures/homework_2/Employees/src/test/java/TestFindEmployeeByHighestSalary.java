@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestFindEmployeeByHighestSalary {
 
   @Test
-  @DisplayName("Входные данные - staff.txt ")
+  @DisplayName("Входные данные - staff.txt - 2017")
   void getEmployee() throws ParseException {
     List<Employee> staff = Employee.loadStaffFromFile("data/staff.txt");
     Date date = (new SimpleDateFormat("dd.MM.yyyy")).parse("31.01.2017");

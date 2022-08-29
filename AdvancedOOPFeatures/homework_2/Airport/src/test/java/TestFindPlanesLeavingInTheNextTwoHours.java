@@ -23,9 +23,9 @@ public class TestFindPlanesLeavingInTheNextTwoHours {
     private static final String[] companyCodes = new String[]{"SU", "AA", "AR", "AF", "B2", "FV"};
 
     private static String stringify(List<Flight> flights) {
-        return "[" + String.join("\n",
+        return "[" + String.join(", ",
                 flights.stream()
-                        .map(f->String.format("<%s %s %s %s>", f.getType(), f.getCode(), f.getDate(), f.getAircraft()))
+                        .map(Flight::toString)
                         .toArray(String[]::new)) + "]";
     }
 
@@ -42,8 +42,6 @@ public class TestFindPlanesLeavingInTheNextTwoHours {
                     terminal.addFlight(generateArrivalFlight(generateDate(HOUR)));
                     terminal.addFlight(generateArrivalFlight(generateDate(HOUR_AND_HALF)));
                     terminal.addFlight(generateArrivalFlight(generateDate(THREE_HOURS)));
-                    terminal.addFlight(generateArrivalFlight(generateDate(-THREE_HOURS)));
-                    terminal.addFlight(generateDepartureFlight(generateDate(-THREE_HOURS)));
 
                     expectedFlights.add(expectedFlight1);
                     expectedFlights.add(expectedFlight2);
