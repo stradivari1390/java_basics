@@ -1,9 +1,6 @@
 import core.Station;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class RouteCalculator {
     private final StationIndex stationIndex;
@@ -16,7 +13,8 @@ public class RouteCalculator {
     }
 
     public List<Station> getShortestRoute(Station from, Station to) {
-        List<Station> route = getRouteOnTheLine(from, to);
+        List<Station> route;
+        route = getRouteOnTheLine(from, to);
         if (route != null) {
             return route;
         }
@@ -24,10 +22,13 @@ public class RouteCalculator {
         route = getRouteWithOneConnection(from, to);
         if (route != null) {
             return route;
-        }
+                    }
 
         route = getRouteWithTwoConnections(from, to);
-        return route;
+        if (route != null) {
+            return route;
+        }
+        return null;
     }
 
     public static double calculateDuration(List<Station> route) {
@@ -87,9 +88,9 @@ public class RouteCalculator {
         for (Station srcStation : fromLineStations) {
             for (Station dstStation : toLineStations) {
                 if (isConnected(srcStation, dstStation)) {
-                    ArrayList<Station> way = new ArrayList<>();
-                    way.addAll(getRouteOnTheLine(from, srcStation));
-                    way.addAll(getRouteOnTheLine(dstStation, to));
+                    List<Station> way = new ArrayList<>();
+                    way.addAll(Objects.requireNonNull(getRouteOnTheLine(from, srcStation)));
+                    way.addAll(Objects.requireNonNull(getRouteOnTheLine(dstStation, to)));
                     if (route.isEmpty() || route.size() > way.size()) {
                         route.clear();
                         route.addAll(way);
@@ -97,7 +98,7 @@ public class RouteCalculator {
                 }
             }
         }
-        return route;
+        return route.isEmpty() ? null : route;
     }
 
     private boolean isConnected(Station station1, Station station2) {
@@ -130,15 +131,14 @@ public class RouteCalculator {
 
         for (Station srcStation : fromLineStations) {
             for (Station dstStation : toLineStations) {
-                List<Station> connectedLineRoute =
-                        getRouteViaConnectedLine(srcStation, dstStation);
+                List<Station> connectedLineRoute = getRouteViaConnectedLine(srcStation, dstStation);
                 if (connectedLineRoute == null) {
                     continue;
                 }
                 List<Station> way = new ArrayList<>();
-                way.addAll(getRouteOnTheLine(from, srcStation));
+                way.addAll(Objects.requireNonNull(getRouteOnTheLine(from, srcStation)));
                 way.addAll(connectedLineRoute);
-                way.addAll(getRouteOnTheLine(dstStation, to));
+                way.addAll(Objects.requireNonNull(getRouteOnTheLine(dstStation, to)));
                 if (route.isEmpty() || route.size() > way.size()) {
                     route.clear();
                     route.addAll(way);

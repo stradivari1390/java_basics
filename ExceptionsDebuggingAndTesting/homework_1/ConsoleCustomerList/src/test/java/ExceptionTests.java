@@ -55,7 +55,7 @@ public class ExceptionTests {
     @Test
     @DisplayName("Тест добавления корректных данных Customer")
     void insertCorrectData() {
-        final String name = "Василий Петров";
+        final String name = "Vasiliy Petrov";
         final String email = "hello@skillbox.ru";
         final String phone = "+79991234567";
         final String input = String.join(" ", name, email, phone);
