@@ -1,6 +1,9 @@
 import core.Line;
 import core.Station;
 import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -25,6 +28,7 @@ public class RouteCalculatorTest extends TestCase {
     Station station8;
 
     @Override
+    @BeforeEach
     public void setUp() throws Exception {
         stationIndex = new StationIndex();
 
@@ -103,6 +107,7 @@ public class RouteCalculatorTest extends TestCase {
     }
 
     @Override
+    @AfterEach
     public void tearDown() throws Exception {
     }
 }
