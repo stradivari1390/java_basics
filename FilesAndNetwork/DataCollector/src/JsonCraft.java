@@ -30,11 +30,11 @@ public class JsonCraft {
             stationsList.forEach(s -> stationsArray.add(s.getName()));
             jsonLinesAndStations.put(l.getNumber(), stationsArray);
         });
-        JSONArray stationsArray = new JSONArray();
-        collector.getStations().stream()
-                .filter(station -> station.getLine() == null)
-                .forEach(s -> stationsArray.add(s.getName()));
-        jsonLinesAndStations.put("Unidentified", stationsArray);
+//        JSONArray stationsArray = new JSONArray();
+//        collector.getStations().stream()
+//                .filter(station -> station.getLine() == null)
+//                .forEach(s -> stationsArray.add(s.getName()));
+//        jsonLinesAndStations.put("Unidentified", stationsArray);
         collector.getConnectedStationsMap().entrySet().forEach(entry -> {
             if (!jsonConnectedStations.toString().contains(entry.getKey().getName())) {
                 JSONArray connectionsObjectsArray = new JSONArray();

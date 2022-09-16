@@ -134,10 +134,14 @@ public class DataCollector {
                             .forEach(station -> station.setOpenDate(openDate));
                 } else if (file.getName().startsWith("depth")) {
                     String depth = stationJsonObject.get("depth") != null ?
-                            stationJsonObject.get("depth").toString().replaceAll(",", ".") :
-                            stationJsonObject.get("depth_meters").toString().replaceAll(",", ".");
-                    depth = depth.replaceAll("[^\u2014\u2013\u2012\u2796\\-\u2010\u2043\uFE63\uFF0D\u2015\\d.]", "");
-                    if (depth.matches("^[\u2014\u2013\u2012\u2796\\-\u2010\u2043\uFE63\uFF0D\u2015]?[0-9]+.?[0-9]*")) {
+                            stationJsonObject.get("depth").toString()
+                                    .replaceAll(",", ".")
+                                    .replaceAll("\u2212", "-") :
+                            stationJsonObject.get("depth_meters").toString()
+                                    .replaceAll(",", ".")
+                                    .replaceAll("\u2212", "-");
+                    depth = depth.replaceAll("[^-\\d.]", "");
+                    if (depth.matches("^-?[0-9]+.?[0-9]*")) {
                         String finalDepth = depth;
                         stations.stream().filter(s -> s.getName().equalsIgnoreCase(stationName)).forEach(station -> station.setDepth(Double.parseDouble(finalDepth)));
                     }
@@ -164,9 +168,10 @@ public class DataCollector {
             }
             else if (file.getName().startsWith("depth")) {
                 String depth = record.get(1)
+                        .replaceAll("\u2212", "-")
                         .replaceAll(",", ".")
-                        .replaceAll("[^\u2014\u2013\u2012\u2796\\-\u2010\u2043\uFE63\uFF0D\u2015\\d.]", "");
-                if (depth.matches("^[\u2014\u2013\u2012\u2796\\-\u2010\u2043\uFE63\uFF0D\u2015]?[0-9]+.?[0-9]*")) {
+                        .replaceAll("[^-\\d.]", "");
+                if (depth.matches("^-?[0-9]+.?[0-9]*")) {
                     stations.stream()
                             .filter(s -> s.getName().equalsIgnoreCase(csvStationName) && s.getDepth() == null)
                             .forEach(station -> station.setDepth(Double.parseDouble(depth)));
