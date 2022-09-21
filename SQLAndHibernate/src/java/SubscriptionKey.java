@@ -21,6 +21,9 @@ public class SubscriptionKey implements Serializable {
     @Column(name = "course_id")
     private int courseId;
 
+    public SubscriptionKey() {
+    }
+
     public SubscriptionKey(int studentId, int courseId) {
         this.studentId = studentId;
         this.courseId = courseId;

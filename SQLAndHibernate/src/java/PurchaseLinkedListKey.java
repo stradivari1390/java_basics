@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class PurchaseKey implements Serializable {
+public class PurchaseLinkedListKey implements Serializable {
 
     @Column(name = "student_name")
     private String studentName;
@@ -20,10 +20,10 @@ public class PurchaseKey implements Serializable {
     @Column(name = "course_name")
     private String courseName;
 
-    public PurchaseKey() {
+    public PurchaseLinkedListKey() {
     }
 
-    public PurchaseKey(String studentName, String courseName) {
+    public PurchaseLinkedListKey(String studentName, String courseName) {
         this.studentName = studentName;
         this.courseName = courseName;
     }

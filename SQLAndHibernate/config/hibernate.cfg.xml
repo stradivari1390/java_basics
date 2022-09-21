@@ -16,13 +16,14 @@
         <property name="show_sql">true</property>
         <!-- Set the current session context -->
         <property name="current_session_context_class">thread</property>
-        <!-- сверка, можно апдейт -->
-        <property name="hbm2ddl.auto">validate</property>
+        <!-- update -->
+        <property name="hbm2ddl.auto">update</property>
 
         <mapping class="Teacher"></mapping>
         <mapping class="Course"></mapping>
         <mapping class="Student"></mapping>
         <mapping class="Purchase"></mapping>
         <mapping class="Subscription"></mapping>
+        <mapping class="PurchaseLinkedList"></mapping>
     </session-factory>
 </hibernate-configuration>

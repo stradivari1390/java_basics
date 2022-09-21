@@ -4,28 +4,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
 
 @Entity
-@Table(name = "purchaselist")
+@Table(name = "purchase_linked_list")
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Purchase {
-
+public class PurchaseLinkedList {
     @EmbeddedId
-    private PurchaseKey id;
+    private PurchaseLinkedListKey id;
 
     @Column(name = "student_name", insertable = false, updatable = false)
     private String studentName;
 
     @Column(name = "course_name", insertable = false, updatable = false)
     private String courseName;
-
-    private int price;
-
-    @Column(name = "subscription_date")
-    private Date subscriptionDate;
 }
