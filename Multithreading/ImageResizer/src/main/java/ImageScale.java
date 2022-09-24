@@ -2,32 +2,31 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class Main {
+public class ImageScale extends Thread {
+    private File[] files;
+    private int newWidth;
+    private String dstFolder;
+    private long start;
 
-    public static void main(String[] args) {
-        String srcFolder = "/users/sortedmap/Desktop/src";
-        String dstFolder = "/users/sortedmap/Desktop/dst";
+    public ImageScale(File[] files, int newWidth, String dstFolder, long start) {
+        this.files = files;
+        this.newWidth = newWidth;
+        this.dstFolder = dstFolder;
+        this.start = start;
+    }
 
-        File srcDir = new File(srcFolder);
-
-        long start = System.currentTimeMillis();
-
-        File[] files = srcDir.listFiles();
-
+    @Override
+    public void run() {
         try {
             for (File file : files) {
                 BufferedImage image = ImageIO.read(file);
                 if (image == null) {
                     continue;
                 }
-
-                int newWidth = 300;
                 int newHeight = (int) Math.round(
-                    image.getHeight() / (image.getWidth() / (double) newWidth)
+                        image.getHeight() / (image.getWidth() / (double) newWidth)
                 );
-                BufferedImage newImage = new BufferedImage(
-                    newWidth, newHeight, BufferedImage.TYPE_INT_RGB
-                );
+                BufferedImage newImage = new BufferedImage(newWidth, newHeight, 1);
 
                 int widthStep = image.getWidth() / newWidth;
                 int heightStep = image.getHeight() / newHeight;
@@ -38,14 +37,13 @@ public class Main {
                         newImage.setRGB(x, y, rgb);
                     }
                 }
-
                 File newFile = new File(dstFolder + "/" + file.getName());
                 ImageIO.write(newImage, "jpg", newFile);
             }
-        } catch (Exception ex) {
+            System.out.println("processed within " + (System.currentTimeMillis() - start) + "ms");
+        }
+        catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        System.out.println("Duration: " + (System.currentTimeMillis() - start));
     }
 }
