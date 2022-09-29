@@ -1,6 +1,6 @@
 import lombok.Data;
-import lombok.Generated;
 import lombok.Synchronized;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
