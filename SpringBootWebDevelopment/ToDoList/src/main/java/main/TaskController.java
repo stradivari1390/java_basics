@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import main.model.Task;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Vector;
 
@@ -36,6 +36,7 @@ public class TaskController {
 
     @PostMapping(value = "/tasks/")
     public int add(Task task) {
+        task.setAddDateTime(new Date());
         Task newTask = taskRepository.save(task);
         return newTask.getId();
     }
@@ -54,18 +55,20 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(null);
     }
 
-    @DeleteMapping("/tasks/")
-    public ResponseEntity<Object> deleteAll(ArrayList<Integer> ids) {
-        if (ids == null) {
-            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(null);
-        }
-        taskRepository.deleteAllById(ids);
-        return new ResponseEntity<>("selected tasks are deleted", HttpStatus.OK);
-    }
+//    @DeleteMapping("/tasks/")
+//    public ResponseEntity<Object> deleteAllByIds(ArrayList<Integer> ids) {
+//        if (ids == null) {
+//            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(null);
+//        }
+//        taskRepository.deleteAllById(ids);
+//        return new ResponseEntity<>("selected tasks are deleted", HttpStatus.OK);
+//    }
 
     @DeleteMapping("/tasks/")
     public ResponseEntity<Object> deleteAll() {
-        taskRepository.deleteAll();
+        if (taskRepository.count() > 0) {
+            taskRepository.deleteAll();
+        }
         return new ResponseEntity<>("All tasks are deleted", HttpStatus.OK);
     }
 
