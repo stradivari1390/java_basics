@@ -7,10 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import main.model.Task;
 
+import javax.websocket.server.PathParam;
 import java.text.DecimalFormat;
-import java.util.Date;
-import java.util.Optional;
-import java.util.Vector;
+import java.util.*;
 
 @RestController
 public class TaskController {
@@ -19,9 +18,9 @@ public class TaskController {
     private TaskRepository taskRepository;
 
     @GetMapping(value = "/tasks/")
-    public Vector<Task> getAll() {
+    public List<Task> getAll() {
         Iterable<Task> taskIterable = taskRepository.findAll();
-        Vector<Task> tasks = new Vector<>();
+        List<Task> tasks = new ArrayList<>();
         taskIterable.forEach(tasks::add);
         return tasks;
     }
@@ -34,9 +33,31 @@ public class TaskController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
+    @GetMapping("/tasks/search")
+    public List<Task> searchText (@PathParam("query") String query) {
+        List<Task> taskList = new ArrayList<>();
+        if (query == null) {
+            taskRepository.findAll().forEach(taskList::add);
+        } else {
+            taskList = taskRepository.findByShortDescriptionIgnoreCaseContainingOrFullDescriptionIgnoreCaseContaining(query, query);
+        }
+
+        return taskList;
+    }
+
+    @GetMapping("/tasks/done")
+    public List<Task> searchDoTask () {
+        return taskRepository.findByAccomplishedTrue();
+    }
+
+    @GetMapping("/tasks/do")
+    public List<Task> searchDoneTask () {
+        return taskRepository.findByAccomplishedFalse();
+    }
+
     @PostMapping(value = "/tasks/")
     public int add(Task task) {
-        task.setAddDateTime(new Date());
+//        task.setAddDateTime(new Date());
         Task newTask = taskRepository.save(task);
         return newTask.getId();
     }
@@ -84,7 +105,7 @@ public class TaskController {
     }
 
     @PutMapping("/tasks/")
-    public ResponseEntity<Object> putAll(Vector<Task> newTasks) {
+    public ResponseEntity<Object> putAll(List<Task> newTasks) {
         if (newTasks == null) {
             return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(null);
         }

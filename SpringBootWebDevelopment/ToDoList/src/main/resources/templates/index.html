@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+    <script src="/js/jquery-3.6.1.min.js"></script>
+    <script src="/js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div id="task-form">
+    <form>
+        <h2>Task add</h2>
+        <label>Task:</label>
+        <input type="text" name="shortDescription" value="">
+        <label>Description:</label>
+        <input type="text" name="fullDescription" value="">
+        <hr>
+        <button id="save-task">Add</button>
+    </form>
+</div>
+<h2>Task list (<span th:text="${tasksAmount}")>0</span>)</h2>
+<div>
+    <p><input type="search" name="query" placeholder="Search in task list" onsearch="location.reload()" />
+        <input type="submit" value="Search"></p>
+</div>
+<button id="show-add-task-form">Add task</button>
+<br><br>
+<button id="all-task" class="button-push">All</button>
+<button id="done-task" class="button">Done</button>
+<button id="do-task" class="button">Undone</button>
+<br><br>
+<div id="task-list" class="standard-table">
+</div>
+<br><br>
+<div id="task-put-forms"> </div>
+<div th:each="task:${tasks}" th:class="${task.accomplished}?'line-done':'line'" th:attr="data-id=${task.id}">
+    <div class="cell"><input type="checkbox" th:checked="${task.accomplished}" th:attr="data-id=${task.id}">
+        <a href="#" class="task-link"  th:attr="data-id=${task.id}"th:text="${task.shortDescription}"></a>
+        <a href="#" class="task-put"  th:attr="data-id=${task.id},data-name=${task.shortDescription},data-desc=${task.fullDescription}" > <img src="src/main/resources/static/js/img/changeIcon.png" width="20px" height="20px"></a>
+    </div>
+    <div class="cell-icon">
+        <a href="#" class="task-delete" th:attr="data-id=${task.id}"> <img src="/src/main/resources/static/js/img/deleteIcon.jpg" width="20px" height="20px"></a>
+    </div>'
+</div>
+</body>
+</html>

@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.time.Period;
 import java.util.Date;
 import java.util.Objects;
 
@@ -35,14 +34,26 @@ public class Task {
     @Column(name = "importance")
     private Importance level;
 
-    @Column(nullable = false)
+    @Column(name = "done", nullable = false)
     private boolean accomplished;
 
     @Column(name = "completed_date")
     private Date completedOnDateTime;
 
-    public void reminder(Period period) {
-    }
+//    public void reminder(Period period) {
+//    }
+//
+//    public void updateEntireTask(Task task) {
+//        if (this.getId().equals(task.getId())) {
+//            setAddDateTime(task.getAddDateTime());
+//            setShortDescription(task.getShortDescription());
+//            setFullDescription(task.getFullDescription());
+//            setShouldBeCompletedBeforeDateTime(task.getShouldBeCompletedBeforeDateTime());
+//            setAccomplished(task.isAccomplished());
+//            setLevel(task.getLevel());
+//            setCompletedOnDateTime(task.getCompletedOnDateTime());
+//        }
+//    }
 
     @Override
     public boolean equals(Object o) {
