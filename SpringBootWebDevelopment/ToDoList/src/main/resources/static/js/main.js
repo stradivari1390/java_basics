@@ -1,16 +1,16 @@
 $(function(){
     const appendTask = function(data){
-      var taskCode = '<div class="cell-icon"> <a href="#" class="task-delete" data-id="' + data.id + '"> <img src="/src/main/resources/static/js/img/deleteIcon.jpg" width="20px" height="20px"></a></div>';
+      var taskCode = '<div class="cell-icon"> <a href="#" class="task-delete" data-id="' + data.id + '"> <img src="./js/img/deleteIcon.jpg" width="50px" height="50px"></a></div>';
 if (data.accomplished == true) {
     var cellFirst = ' <div class="cell"><input type="checkbox" data-id="' + data.id + '" checked>'+
                             '<a href="#" class="task-link" data-id="' + data.id + '">' + data.shortDescription + '</a>'+
-                            '<a href="#" class="task-put" data-id="' + data.id + '" data-name="' + data.shortDescription + '" data-desc="' + data.fullDescription + '"> <img src="/src/main/resources/static/js/img/changeIcon.png" width="20px" height="20px"></a></div> ';
+                            '<a href="#" class="task-put" data-id="' + data.id + '" data-name="' + data.shortDescription + '" data-desc="' + data.fullDescription + '"> <img src="./js/img/changeIcon.png" width="50px" height="50px"></a></div> ';
     $('#task-list').append('<div class="line-done" data-id="' + data.id + '">' + cellFirst + taskCode + '</div>');
     }
     else {
         var cellFirst = ' <div class="cell"><input type="checkbox" data-id="' + data.id + '" >'+
         '<a href="#" class="task-link" data-id="' + data.id + '">' + data.shortDescription + '</a>'+
-        '<a href="#" class="task-put" data-id="' + data.id + '" data-name="' + data.shortDescription + '" data-desc="' + data.fullDescription + '"> <img src="/src/main/resources/static/js/img/changeIcon.png" width="20px" height="20px"></a></div> ';
+        '<a href="#" class="task-put" data-id="' + data.id + '" data-name="' + data.shortDescription + '" data-desc="' + data.fullDescription + '"> <img src="./js/img/changeIcon.png" width="50px" height="50px"></a></div> ';
         $('#task-list').append('<div class="line" data-id="' + data.id + '">' + cellFirst + taskCode + '</div>');
         }
     };
@@ -89,7 +89,7 @@ $(document).on('click','input[type="checkbox"]', function() {
                     url: '/tasks/' + taskId,
                     success: function(response)
                     {
-                        var code = '<div id="description-form" class="description" data-id="' + taskId + '"> <form> <h3> Description </h3> <label>' + response.fullDescription +
+                        var code = '<div id="description-form" class="fullDescription" data-id="' + taskId + '"> <form> <h3> Description </h3> <label>' + response.fullDescription +
                         '</label><form><hr> <button id="close-description" data-id="' + taskId + '">ОК</button> </div>';
                         if ((document.querySelector('div[id="description-form"][data-id="'+ taskId +'"]')) == null) {
                         link.parent().append(code);
@@ -124,7 +124,7 @@ $(document).on('click','button#close-description', function() {
                         success: function(response)
                         {
                             location.reload();
-                            alert('Task "' + response.name + '" was deleted');
+                            alert('Task "' + response.shortDescription + '" was deleted');
                         },
                         error: function(response)
                         {
