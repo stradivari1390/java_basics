@@ -27,7 +27,7 @@ public class RedisStorage {
     private void init() {
         removeKey();
         for (int i = 1; i <= USERS_AMOUNT; i++) {
-            client.zadd("Users", new Date().getTime(), (new DecimalFormat("##").format(i)));
+            client.zadd("Users", new Date().getTime(), (new DecimalFormat("00").format(i)));
         }
         ScanResult<Tuple> users = client.zscan("Users", "0");
         usersList = users.getResult();
