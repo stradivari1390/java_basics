@@ -41,11 +41,11 @@ public class DOMParser {
             Date birthday = birthDayFormat.parse(attributes.getNamedItem("birthDay").getNodeValue());
             try {
                 Voter voter = new Voter(new VoterKey(name, birthday), name, birthday, 1);
-                session.save(voter);
+                session.persist(voter);
             } catch (NonUniqueObjectException exception) {
                 Voter voter = session.get(Voter.class, new VoterKey(name, birthday));
                 voter.setVoteCount(voter.getVoteCount() + 1);
-                session.saveOrUpdate(voter);
+                session.refresh(voter);
             }
         }
         try {

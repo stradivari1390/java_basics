@@ -1,7 +1,13 @@
 import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.*;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.GeneratedColumn;
 
+//import javax.xml.bind.annotation.XmlType;
+//import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
@@ -13,7 +19,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
-public class Voter {
+public class Voter implements Serializable {
 
     @NonNull
     @EmbeddedId
@@ -29,17 +35,13 @@ public class Voter {
     @Column(insertable = false, updatable = false)
     @NonNull
     @ToString.Exclude
-    private Date birthday;
+//    @XmlJavaTypeAdapter(DateAdapter.class)
+    private Date birthDay;
 
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "vote_count", nullable = true)
     @ToString.Exclude
     int voteCount;
-
-    public String toString() {
-        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
-        return name + " (" + dayFormat.format(birthday) + ")";
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -52,5 +54,10 @@ public class Voter {
     @Override
     public int hashCode() {
         return Objects.hash(voterKey);
+    }
+
+    public String toString() {
+        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
+        return name + " (" + dayFormat.format(birthDay) + ")";
     }
 }

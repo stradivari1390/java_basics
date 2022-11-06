@@ -3,35 +3,48 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+//import javax.xml.parsers.SAXParser;
+//import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        String fileName = "res/data-18M.xml";
+        String fileName = "res/data-1572M.xml";
 
-        SAXParserFactory factory = SAXParserFactory.newInstance();
+        StaxParser staxParser = new StaxParser(new File(fileName));
 
-        SAXParser saxParser = factory.newSAXParser();
+//        SAXParserFactory factory = SAXParserFactory.newInstance();
 
-        XMLHandler handler = new XMLHandler();
+//        SAXParser saxParser = factory.newSAXParser();
+
+//        XMLHandler handler = new XMLHandler();
 
 //        DOMParser domParser = new DOMParser();
 
+        long start = System.currentTimeMillis();
+
         long usage = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
-        saxParser.parse(new File(fileName), handler);
+//        saxParser.parse(new File(fileName), handler);
 
 //        domParser.parseFile(fileName);
+
+        try {
+            staxParser.getAllVoters();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         usage = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory() - usage;
         System.out.println("\nMemory used: " + usage + "\n");
 
-        printHibernateTableData();
+        System.out.println("Data uploaded to DB within " + (System.currentTimeMillis() - start) + " milliseconds");
+
+//        printHibernateTableData();
     }
 
     public static void printHibernateTableData() {
