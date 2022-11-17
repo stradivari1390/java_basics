@@ -200,3 +200,6 @@ $RECYCLE.BIN/
 **/.idea/
 **/target/
 *.iml
+
+#libs
+**/DataCollector/lib/
