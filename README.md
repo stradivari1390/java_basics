@@ -1,3 +1,3 @@
 # java_basics
-Java, few practice blocks
-reminder: delete
+Java, few practice blocks./n
+Reminder: delete
